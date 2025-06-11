@@ -36,11 +36,21 @@ Time (in seconds)
 Words Per Minute (WPM)
 Total Mistakes
 Score (out of 100, calculated based on accuracy and speed)
-![image](https://github.com/user-attachments/assets/8deaba4f-741f-4019-ab28-0f444b33d6e7)
 
+Old Version:
 ![image](https://github.com/user-attachments/assets/59dcda03-27c0-460c-a4cb-059e1f5256dc)
-
 ![image](https://github.com/user-attachments/assets/3d7b6e76-8936-4bbc-b571-ba4c865fa25d)
+
+New Version (Change theme to light/dark mode)
+Light Mode
+![image](https://github.com/user-attachments/assets/f7b5f109-e6e5-4908-81b7-6d87005a94dd)
+![image](https://github.com/user-attachments/assets/62a1c17d-08a7-4459-ab46-e74c4c476dd7)
+
+Dark Mode
+![image](https://github.com/user-attachments/assets/05c1240f-fb66-4d1a-b4be-09c7e3097483)
+![image](https://github.com/user-attachments/assets/5564d8ef-a6bb-4e33-a355-1bd87267aaf4)
+
+
 
 
 
