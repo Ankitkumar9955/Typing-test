@@ -2,7 +2,7 @@ Welcome to My Interactive Typing Test!
 This project provides a modern and engaging typing test experience, designed to help you improve your typing speed and accuracy. It features real-time feedback, detailed performance metrics, and the exciting ability to generate new, unique sentences using the Gemini API! 🚀
 
 🚦 Live Preview
-View the Website Here
+[View the Website Here](https://ankitkumar9955.github.io/Typing-test/index.html)
 
 💡 Concept & Inspiration
 The goal was to create a highly interactive and visually appealing typing test that goes beyond static sentences. By integrating AI-powered sentence generation via the Gemini API, the application offers endless practice opportunities and keeps the experience fresh and challenging. The modern design aims to be clean, intuitive, and provide immediate visual feedback, making typing practice both effective and fun.
