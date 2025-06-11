@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Typing Test</h1>
+
+        <div id="sentence-display" class="sentence-display">
+            <!-- Sentence characters will be rendered here by JavaScript -->
+        </div>
+
+        <input type="text" id="typed-input" class="typed-input" placeholder="Start typing here..." autofocus disabled>
+
+        <div class="metric-grid">
+            <div class="metric-item">
+                Time (s)<span id="time">0</span>
+            </div>
+            <div class="metric-item">
+                WPM<span id="wpm">0</span>
+            </div>
+            <div class="metric-item">
+                Mistakes<span id="mistakes">0</span>
+            </div>
+            <div class="metric-item">
+                Score<span id="score">0/100</span>
+            </div>
+        </div>
+
+        <div class="control-buttons">
+            <button id="start-btn" class="btn">Start Test</button>
+            <button id="restart-btn" class="btn hidden">Restart Test</button>
+            <button id="generate-sentence-btn" class="btn">✨ Generate New Sentence ✨</button>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="results-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Test Complete!</h2>
+            <p>Your Time: <span id="modal-time">0s</span></p>
+            <p>Your WPM: <span id="modal-wpm">0</span></p>
+            <p>Mistakes: <span id="modal-mistakes">0</span></p>
+            <p>Score: <span id="modal-score">0/100</span></p>
+            <button id="modal-restart-btn" class="btn modal-btn">Try Again</button>
+        </div>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
