@@ -1,28 +1,97 @@
-/* Import Google Fonts - Inter is loaded in HTML */
+/* Root CSS Variables for Theme */
+:root {
+    /* Dark Mode Defaults (your new palette) */
+    --body-bg: #1C1C1C; /* Soft black */
+    --primary-text-color: #F5E8D8; /* Warm beige */
+    --container-bg: #222222; /* Slightly lighter dark for container */
+    --heading-color: #DAA520; /* Golden yellow for the main heading (brightest) */
+    --sentence-display-bg: #282828; /* Dark background for sentence display */
+    --border-color: #FF6F61; /* Accent 1: muted coral */
+    --input-bg: #282828;
+    --input-text-color: #F5E8D8;
+    --focus-border-color: #DAA520; /* Accent 2: golden yellow for focus */
+    --focus-shadow-color-rgb: 218, 165, 32; /* RGB for Accent 2 for shadow */
+    --metric-item-bg: #282828;
+    --metric-label-color: #B0B0B0; /* Lighter text for labels */
+    --metric-value-color: #FF6F61; /* Accent 1: muted coral for metric values */
+    --button-bg: #3E5641; /* Forest green */
+    --button-hover-bg: #FF4500; /* Burnt orange for hover */
+    --button-shadow-color-rgb: 62, 86, 65; /* RGB for button normal shadow */
+    --button-hover-shadow-color-rgb: 255, 69, 0; /* RGB for button hover shadow */
+    --current-char-bg: rgba(245, 232, 216, 0.15); /* Subtle highlight from primary text with opacity */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.85);
+    --modal-content-bg: #222222;
+    --modal-title-color: #DAA520; /* Accent 2 for modal title */
+    --modal-text-color: #F5E8D8;
+    --modal-value-color: #FF6F61; /* Accent 1 for modal values */
+
+    /* Font-weight for default (dark) mode */
+    font-weight: 500;
+}
+
+/* Light Mode Variables - Applied when the body has 'light-mode' class */
+body.light-mode {
+    --body-bg: #F0F2F5; /* Light grey background */
+    --primary-text-color: #333333; /* Dark text */
+    --container-bg: #FFFFFF;
+    --heading-color: #1A1A1A; /* Dark heading for light mode */
+    --sentence-display-bg: #FFFFFF;
+    --border-color: #C0C0C0; /* Light grey border */
+    --input-bg: #FFFFFF;
+    --input-text-color: #333333;
+    --focus-border-color: #666666; /* Darker grey for light mode focus */
+    --focus-shadow-color-rgb: 102, 102, 102;
+    --metric-item-bg: #EFEFEF; /* Lighter grey for metric items */
+    --metric-label-color: #555555;
+    --metric-value-color: #1A1A1A; /* Darkest value for light mode */
+    --button-bg: #DAA520; /* Golden yellow button for light mode */
+    --button-hover-bg: #FF4500; /* Burnt orange for light mode hover */
+    --button-shadow-color-rgb: 218, 165, 32;
+    --button-hover-shadow-color-rgb: 255, 69, 0;
+    --current-char-bg: rgba(0, 0, 0, 0.1); /* Subtle black highlight with opacity */
+    --modal-overlay-bg: rgba(0, 0, 0, 0.5);
+    --modal-content-bg: #FFFFFF;
+    --modal-title-color: #1A1A1A;
+    --modal-text-color: #333333;
+    --modal-value-color: #666666;
+
+    /* Font-weight for light mode */
+    font-weight: 400;
+}
+
+/* Base styles using CSS variables */
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient background */
+    background: var(--body-bg);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 1rem; /* Add some padding for smaller screens */
+    padding: 1rem;
     box-sizing: border-box;
+    transition: background-color 0.5s ease; /* Smooth transition for theme change */
 }
 
 .container {
-    background-color: #ffffff;
-    border-radius: 1.5rem; /* More rounded corners */
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); /* Enhanced shadow */
-    padding: 2.5rem; /* Increased padding */
+    background-color: var(--container-bg);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    padding: 2.5rem;
     max-width: 900px;
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Spacing between elements */
-    animation: fadeIn 0.8s ease-out; /* Fade-in animation */
+    gap: 1.5rem;
+    animation: fadeIn 0.8s ease-out;
+    color: var(--primary-text-color);
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+h1 {
+    color: var(--heading-color); /* Heading color from variable */
+    transition: color 0.5s ease; /* Smooth transition */
 }
 
 @keyframes fadeIn {
@@ -31,40 +100,41 @@ body {
 }
 
 .sentence-display {
-    min-height: 120px; /* Ensure enough space for longer sentences */
-    background-color: #f8fafc; /* Light background for sentence */
-    border: 1px solid #e2e8f0;
+    min-height: 120px;
+    background-color: var(--sentence-display-bg);
+    border: 1px solid var(--border-color);
     border-radius: 0.75rem;
     padding: 1.5rem;
-    font-size: 1.5rem; /* Larger font size */
-    line-height: 1.8; /* Better line spacing */
+    font-size: 1.5rem;
+    line-height: 1.8;
     text-align: left;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    white-space: normal; /* Allow text to wrap naturally */
-    transition: border-color 0.3s ease;
-    user-select: none; /* Disable user selection */
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
+    white-space: normal;
+    transition: border-color 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+    color: var(--primary-text-color);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .sentence-display span {
-    transition: background-color 0.1s ease; /* Smooth highlight transition */
-    padding: 0 1px; /* Small padding to make highlight visible */
+    transition: background-color 0.1s ease;
+    padding: 0 1px;
 }
 
 .correct {
-    color: #10b981; /* Tailwind green-500 */
+    color: #10b981; /* Keeping original green for good contrast */
 }
 
 .incorrect {
-    color: #ef4444; /* Tailwind red-500 */
-    text-decoration: underline; /* Underline incorrect characters */
+    color: #ef4444; /* Keeping original red for good contrast */
+    text-decoration: underline;
 }
 
 .current {
-    background-color: #bfdbfe; /* Tailwind blue-200 */
+    background-color: var(--current-char-bg);
     border-radius: 2px;
 }
 
@@ -72,38 +142,42 @@ body {
     width: 100%;
     padding: 1rem 1.25rem;
     font-size: 1.25rem;
-    border: 2px solid #cbd5e1; /* Slightly thicker border */
+    border: 2px solid var(--border-color);
     border-radius: 0.75rem;
     outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--input-bg);
+    color: var(--input-text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
 }
 .typed-input:focus {
-    border-color: #6366f1; /* Tailwind indigo-500 on focus */
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3); /* Focus ring */
+    border-color: var(--focus-border-color);
+    box-shadow: 0 0 0 3px rgba(var(--focus-shadow-color-rgb), 0.4);
 }
 
 .metric-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
     margin-top: 1.5rem;
 }
 
 .metric-item {
-    background-color: #e0f2fe; /* Light blue background */
+    background-color: var(--metric-item-bg);
     border-radius: 0.75rem;
     padding: 1rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #1e3a8a; /* Dark blue text */
+    color: var(--metric-label-color);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 .metric-item span {
     display: block;
-    font-size: 2rem; /* Larger metric value */
+    font-size: 2rem;
     font-weight: 700;
-    color: #4f46e5; /* Indigo-600 for values */
+    color: var(--metric-value-color);
     margin-top: 0.5rem;
+    transition: color 0.5s ease;
 }
 
 .control-buttons {
@@ -111,11 +185,11 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
-    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    flex-wrap: wrap;
 }
 
 .btn {
-    background: linear-gradient(45deg, #6366f1 0%, #8b5cf6 100%); /* Gradient button */
+    background: var(--button-bg);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
@@ -124,17 +198,17 @@ body {
     cursor: pointer;
     border: none;
     outline: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); /* Shadow for button */
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.5s ease;
+    box-shadow: 0 5px 15px rgba(var(--button-shadow-color-rgb), 0.4);
 }
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.6);
-    background: linear-gradient(45deg, #8b5cf6 0%, #6366f1 100%); /* Reverse gradient on hover */
+    box-shadow: 0 8px 20px rgba(var(--button-hover-shadow-color-rgb), 0.6);
+    background: var(--button-hover-bg);
 }
 .btn:active {
     transform: translateY(0);
-    box-shadow: 0 3px 10px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 3px 10px rgba(var(--button-shadow-color-rgb), 0.3);
 }
 .btn:disabled {
     opacity: 0.6;
@@ -150,7 +224,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: var(--modal-overlay-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,15 +238,15 @@ body {
     visibility: visible;
 }
 .modal-content {
-    background-color: #ffffff;
+    background-color: var(--modal-content-bg);
     padding: 2.5rem;
     border-radius: 1.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     text-align: center;
     max-width: 500px;
     width: 90%;
     transform: scale(0.9);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.5s ease, color 0.5s ease;
 }
 .modal-overlay.show .modal-content {
     transform: scale(1);
@@ -180,17 +254,20 @@ body {
 .modal-content h2 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #4f46e5;
+    color: var(--modal-title-color); /* Accent 2 for modal title */
     margin-bottom: 1.5rem;
+    transition: color 0.5s ease;
 }
 .modal-content p {
     font-size: 1.4rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--modal-text-color);
+    transition: color 0.5s ease;
 }
 .modal-content p span {
     font-weight: 700;
-    color: #1e3a8a;
+    color: var(--modal-value-color);
+    transition: color 0.5s ease;
 }
 .modal-content .modal-btn {
     margin-top: 2rem;
