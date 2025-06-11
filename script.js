@@ -22,6 +22,7 @@ const scoreDisplay = document.getElementById('score');
 const startBtn = document.getElementById('start-btn');
 const restartBtn = document.getElementById('restart-btn');
 const generateSentenceBtn = document.getElementById('generate-sentence-btn');
+const themeToggleBtn = document.getElementById('theme-toggle-btn'); // New theme toggle button
 const resultsModal = document.getElementById('results-modal');
 const modalTime = document.getElementById('modal-time');
 const modalWPM = document.getElementById('modal-wpm');
@@ -65,6 +66,7 @@ function initializeGame(sentenceToUse = null) {
     startBtn.classList.remove('hidden');
     restartBtn.classList.add('hidden');
     generateSentenceBtn.disabled = false; // Enable generate button
+    themeToggleBtn.disabled = false; // Enable theme toggle after restart
 
     // Select sentence: use provided, or random static one
     currentSentence = sentenceToUse || sentences[Math.floor(Math.random() * sentences.length)];
@@ -199,6 +201,7 @@ function endGame() {
     startBtn.classList.add('hidden'); // Hide start button
     restartBtn.classList.remove('hidden'); // Show restart button
     generateSentenceBtn.disabled = false; // Enable generate button
+    themeToggleBtn.disabled = false; // Enable theme toggle after restart
 
     // Populate modal with final results
     modalTime.textContent = `${timeDisplay.textContent}s`;
@@ -257,6 +260,16 @@ async function generateSentenceFromLLM() {
     }
 }
 
+/**
+ * Toggles the theme between dark and light mode.
+ */
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLightMode = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLightMode ? 'light' : 'dark'); // Save preference
+    themeToggleBtn.textContent = isLightMode ? '🌙 Switch to Dark Mode' : '☀️ Switch to Light Mode';
+}
+
 // Event Listeners
 startBtn.addEventListener('click', () => {
     typedInput.disabled = false; // Enable input
@@ -264,10 +277,17 @@ startBtn.addEventListener('click', () => {
     startBtn.classList.add('hidden'); // Hide start button
     restartBtn.classList.remove('hidden'); // Show restart button
     generateSentenceBtn.disabled = true; // Disable generate button during test
+    themeToggleBtn.disabled = true; // Disable theme toggle during test
 });
 
-restartBtn.addEventListener('click', () => initializeGame()); // Restart with a random static sentence
-modalRestartBtn.addEventListener('click', () => initializeGame()); // Restart with a random static sentence
+restartBtn.addEventListener('click', () => {
+    initializeGame(); // Restart with a random static sentence
+    themeToggleBtn.disabled = false; // Enable theme toggle after restart
+});
+modalRestartBtn.addEventListener('click', () => {
+    initializeGame(); // Restart with a random static sentence
+    themeToggleBtn.disabled = false; // Enable theme toggle after restart
+});
 typedInput.addEventListener('input', handleInput);
 
 // Event listener for the new Gemini-powered sentence generation
@@ -279,7 +299,22 @@ generateSentenceBtn.addEventListener('click', async () => {
     startBtn.classList.add('hidden'); // Hide start button
     restartBtn.classList.remove('hidden'); // Show restart button
     generateSentenceBtn.disabled = true; // Disable generate button during test
+    themeToggleBtn.disabled = true; // Disable theme toggle during test
 });
 
-// Initialize the game when the page loads with a random static sentence
-window.onload = () => initializeGame();
+// Event listener for theme toggle button
+themeToggleBtn.addEventListener('click', toggleTheme);
+
+// Initialize the game and apply saved theme on page load
+window.onload = () => {
+    const savedTheme = localStorage.getItem('theme');
+    // Apply light mode if saved preference is 'light' or if system prefers light and no preference saved
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggleBtn.textContent = '🌙 Switch to Dark Mode';
+    } else {
+        // Default to dark mode (your provided palette)
+        themeToggleBtn.textContent = '☀️ Switch to Light Mode';
+    }
+    initializeGame();
+};
