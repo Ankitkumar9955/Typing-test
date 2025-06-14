@@ -140,6 +140,10 @@ function calculateMetrics() {
  * Handles user input in the typing field.
  * @param {Event} event - The input event object.
  */
+/**
+ * Handles user input in the typing field.
+ * @param {Event} event - The input event object.
+ */
 function handleInput(event) {
     if (!isTypingStarted) {
         startTimer();
@@ -148,7 +152,7 @@ function handleInput(event) {
 
     const allTypedText = typedInput.value;
 
-    // Clear previous highlights and current character highlight
+    // Remove all previous highlights and current character highlight for a clean re-evaluation
     sentenceCharacters.forEach((_, idx) => {
         const charSpan = document.getElementById(`char-${idx}`);
         if (charSpan) {
@@ -156,13 +160,16 @@ function handleInput(event) {
         }
     });
 
-    // Re-evaluate all typed characters for highlighting
-    correctCharactersCount = 0; // Reset for recalculation
-    totalMistakes = 0; // Reset for recalculation
+    // Re-evaluate all typed characters for highlighting and mistake/correct count
+    totalMistakes = 0;
+    correctCharactersCount = 0;
 
-    for (let i = 0; i < allTypedText.length; i++) {
+    for (let i = 0; i < sentenceCharacters.length; i++) { // Loop through the original sentence characters
         const charSpan = document.getElementById(`char-${i}`);
-        if (charSpan) {
+        if (!charSpan) continue; // Skip if element not found (shouldn't happen)
+
+        if (i < allTypedText.length) {
+            // User has typed a character for this position
             if (allTypedText[i] === sentenceCharacters[i]) {
                 charSpan.classList.add('correct');
                 correctCharactersCount++;
@@ -170,19 +177,14 @@ function handleInput(event) {
                 charSpan.classList.add('incorrect');
                 totalMistakes++;
             }
+        } else if (i === allTypedText.length) {
+            // This is the next character the user needs to type
+            charSpan.classList.add('current');
         }
     }
 
     // Update characterIndex based on current input length
     characterIndex = allTypedText.length;
-
-    // Highlight the next character to be typed
-    if (characterIndex < sentenceCharacters.length) {
-        const nextCharSpan = document.getElementById(`char-${characterIndex}`);
-        if (nextCharSpan) {
-            nextCharSpan.classList.add('current');
-        }
-    }
 
     calculateMetrics(); // Update metrics after each input
 
@@ -191,10 +193,7 @@ function handleInput(event) {
         endGame();
     }
 }
-
-/**
- * Ends the game, stops the timer, and displays results.
- */
+ 
 function endGame() {
     clearInterval(timerInterval);
     typedInput.disabled = true; // Disable input
